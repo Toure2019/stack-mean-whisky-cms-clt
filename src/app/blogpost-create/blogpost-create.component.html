@@ -1,0 +1,16 @@
+<mat-card>
+    <form [formGroup]="creationForm" (submit)="createBlogpost(formDirective)" #formDirective="ngForm">
+        <div class="example-container">
+            <mat-form-field>
+                <input matInput placeholder="title" required formControlName="title">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="subTitle" required formControlName="subTitle">
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="content" required formControlName="content"></textarea>
+            </mat-form-field>
+            <button mat-button type="submit">Create</button>
+        </div>
+    </form>
+</mat-card>

@@ -10,6 +10,8 @@ import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
 import { MaterialModule } from './material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminComponent } from './admin/admin.component';
+import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import { AdminComponent } from './admin/admin.component';
     BlogpostComponent,
     BlogpostListComponent,
     NotFoundComponent,
-    AdminComponent
+    AdminComponent,
+    BlogpostCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
