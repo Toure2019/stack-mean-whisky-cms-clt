@@ -17,16 +17,34 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     // this.blogposts$ = this.blogpostService.getBlogposts();
     this.blogpostService.getBlogposts()
-      .subscribe(data => {
-        console.log(data);
-        this.allBlogposts = data;
-      });
+      .subscribe(data => this.refresh(data));
   }
 
-  deleteBlogposts(selectOptions) {
-    const ids = selectOptions.map(so => so._value);
-    console.log(ids);
-    this.blogpostService.deleteSingleBlogpost(ids[0]).subscribe(data => console.log(data));
-  }
+    deleteBlogposts(selectOptions) {
+        const ids = selectOptions.map(so => so._value);
+        if (ids.length === 1) {
+            this.blogpostService.deleteSingleBlogpost(ids[0])
+            .subscribe(
+                data => this.refresh(data), 
+                err  => this.handleError(err)
+            );
+        } else {
+            this.blogpostService.deleteBlogposts(ids)
+            .subscribe(
+                data => this.refresh(data),
+                err  => this.handleError(err)
+            );
+        }
+    }
+
+    refresh(data) {
+        console.log('data', data);
+        this.blogpostService.getBlogposts()
+            .subscribe(data => this.allBlogposts = data);
+    }
+
+    handleError(error) {
+        console.error(error);
+    }
 
 }
