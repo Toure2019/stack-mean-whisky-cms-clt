@@ -10,11 +10,11 @@ import { Blogpost } from '../models/blogpost';
   styleUrls: ['./blogpost-edit.component.css']
 })
 export class BlogpostEditComponent implements OnInit {
-	// editForm: FormGroup;
+	editForm: FormGroup;
 	blogpostId: string;
 	blogpost: Blogpost;
 
-    constructor(private blogpostService: BlogpostService, private el: ElementRef, private activatedRoute: ActivatedRoute) { }
+    constructor(private fb: FormBuilder, private blogpostService: BlogpostService, private el: ElementRef, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
 		this.blogpostId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -23,17 +23,17 @@ export class BlogpostEditComponent implements OnInit {
 				data => { this.blogpost = data },
 				err => console.error(err)
 			);
-			// this.createForm();
+			this.createForm();
 	}
 	
-	// createForm() {
-	// 	this.editForm = this.fb.group({
-	// 		title: '',
-	// 		subTitle: '',
-	// 		content: '',
-	// 		image: ''
-	// 	});
-	// }
+	createForm() {
+		this.editForm = this.fb.group({
+			title: '',
+			subTitle: '',
+			content: '',
+			image: ''
+		});
+	}
 
 	upload() {
 		let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#image');
@@ -46,20 +46,16 @@ export class BlogpostEditComponent implements OnInit {
 	}
 
 	updateBlogpost(formDirective: FormGroupDirective) {
-		// if (this.editForm.valid) {
-		// 	console.log(this.editForm.value);
-		// 	this.blogpostService.updateBlogpost(this.blogpostId, this.editForm.value)
-		// 		.subscribe(data => this.handleSuccess(data, formDirective), err => this.handleError(err));
-		// }
-		const editedBlogpost = this.blogpost;
-		this.blogpostService.updateBlogpost(this.blogpostId, editedBlogpost)
-			.subscribe(data => this.handleSuccess(data, formDirective), err => this.handleError(err));
+		if (this.editForm.valid) {
+			console.log(this.editForm.value);
+			this.blogpostService.updateBlogpost(this.blogpostId, this.editForm.value)
+				.subscribe(data => this.handleSuccess(data, formDirective), err => this.handleError(err));
+		}
 	}
 
 	handleSuccess(data, formDirective) {
 		console.log('Ok handleSuccess - blog post updated', data);
-		// this.editForm.reset();
-		formDirective.reset();
+		this.editForm.reset();
 		formDirective.resetForm();
 		this.blogpostService.dispatchBlogpostCreated(data._id);
 	}
