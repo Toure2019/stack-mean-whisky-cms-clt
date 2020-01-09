@@ -41,4 +41,8 @@ export class BlogpostService {
   handleBlogpostCreated() {
     return this.blogpostCreated.asObservable();
   }
+
+  uploadImage(formData: FormData) {
+    return this.httpClient.post<any>(`${this.baseUrl}/images`, formData);
+  }
 }
