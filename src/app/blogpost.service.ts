@@ -24,6 +24,10 @@ export class BlogpostService {
     return this.httpClient.delete(`${this.baseUrl}/${id}`);
   }
 
+  updateBlogpost(id: string, blogpost: Blogpost) {
+    return this.httpClient.put(`${this.baseUrl}/${id}`, blogpost);
+  }
+
   deleteBlogposts(ids: string[]) {
     // http://localhost:3000/api/v1/blog-posts?ids=1sd,f45g,5544
     const allIds = ids.join(',');   // 'assds1, dkfkgpek, mmf5l84'
