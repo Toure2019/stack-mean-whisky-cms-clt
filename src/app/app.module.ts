@@ -12,6 +12,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminComponent } from './admin/admin.component';
 import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BlogpostListComponent,
     NotFoundComponent,
     AdminComponent,
-    BlogpostCreateComponent
+    BlogpostCreateComponent,
+    BlogpostEditComponent
   ],
   imports: [
     BrowserModule,
