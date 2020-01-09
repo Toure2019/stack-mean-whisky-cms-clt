@@ -1,21 +1,21 @@
 <mat-card *ngIf="blogpost as bp; else loading">
-    <form [formGroup]="editForm" #formDirective="ngForm" (submit)="updateBlogpost(formDirective)">
+    <form #formDirective="ngForm" (submit)="updateBlogpost(formDirective)">
         <div class="example-container"> 
             <mat-form-field>
-                <input matInput name="title" placeholder="title" formControlName="title" [value]="bp.title" required>
+                <input matInput placeholder="title" [(ngModel)]="bp.title" name="title" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput name="subTitle" placeholder="subTitle" formControlName="subTitle" [value]="bp.subTitle" required>
+                <input matInput placeholder="subTitle" [(ngModel)]="bp.subTitle" name="subTitle" required>
             </mat-form-field>
             <mat-form-field>
-                <textarea matInput placeholder="content" formControlName="content" [value]="bp.content" required></textarea>
-                <!-- <input matInput name="content" placeholder="content" formControlName="content" [value]="bp.content" required> -->
+                <textarea matInput placeholder="content" [(ngModel)]="bp.content" name="content" required></textarea>
+                <!-- <input matInput name="content" placeholder="content" [(ngModel)]="content" [value]="bp.content" required> -->
             </mat-form-field>
             <label for="image">choose image</label>
-            <input type="file" name="image" id="image" formControlName="image" [value]="bp.image">
+            <input type="file" name="image" id="image">
 
             <button type="button" mat-button (click)="upload()">upload image</button>
-            <button type="submit" mat-button>update blog post</button>
+            <button type="submit" [disabled]="!formDirective.form.valid" mat-button>update blog post</button>
         </div>
     </form>
 </mat-card>
