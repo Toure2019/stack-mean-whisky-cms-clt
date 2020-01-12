@@ -13,10 +13,14 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
     // blogposts$ : Observable<Blogpost[]>;
     allBlogposts: Blogpost[];
+    errorFromServer = '';
 
     constructor(private blogpostService: BlogpostService, private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
+        if (!this.authService.isAuthenticated) {
+            this.router.navigate(['/auth']);
+        }
         // this.blogposts$ = this.blogpostService.getBlogposts();
         this.blogpostService.getBlogposts()
             .subscribe(data => this.refresh(data));
@@ -52,6 +56,7 @@ export class AdminComponent implements OnInit {
     }
 
     handleError(error) {
+        this.errorFromServer = `Error : ${error.status} - ${error.statusText}`;
         console.error(error);
     }
 
